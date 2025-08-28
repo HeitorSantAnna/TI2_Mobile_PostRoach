@@ -1,23 +1,37 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class Escalada : MonoBehaviour
+public class Escalada : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public float input, speed;
+    public float sensibitlity = 3;
+    bool pressing;
+    [SerializeField] GameObject player;
 
-    void Start()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        
+        pressing = true;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        pressing = false;
     }
 
     void Update()
     {
-        
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if(other.gameObject.layer == 6)
+        if(pressing)
         {
-            Debug.Log("Voc  colidiu");
+            input += Time.deltaTime * sensibitlity;
         }
+        else
+        {
+            input -= Time.deltaTime * (sensibitlity * 10000);
+        }
+
+        input = Mathf.Clamp(input, 0, 40);
+
+        player.transform.Translate(0, speed * input * Time.deltaTime, 0);
     }
 }
