@@ -6,7 +6,7 @@ using UnityEngine.Windows;
 [RequireComponent(typeof(Rigidbody))]
 public class Movimento : MonoBehaviour
 {
-    [SerializeField] private float velocidade = 4f;
+    [SerializeField] private float velocidade = 20f;
     private Vector2 myInput;
     private Rigidbody rb;
     private Transform myCamera;
@@ -70,10 +70,12 @@ public class Movimento : MonoBehaviour
         if(other.gameObject.CompareTag("Acelerar"))
         {
             Aceleradores.aceleracaototal += 5;
+            Destroy(other.gameObject);
         }
         else if(other.gameObject.CompareTag("Desacelerar"))
         {
             Desaceleradores.desaceleracaototal += 4;
+            Destroy(other.gameObject);
         }
     }
 }
