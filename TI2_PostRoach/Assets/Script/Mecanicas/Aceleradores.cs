@@ -22,6 +22,7 @@ public class Aceleradores : MonoBehaviour
 
             if(time <= 0)
             {
+                Debug.Log("Parei de acelerar");
                 aceleracaototal = 0;
                 time = 10;
             }

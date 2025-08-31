@@ -16,11 +16,13 @@ public class Desaceleradores : MonoBehaviour
         {
             while (time >= 0)
             {
+                Debug.Log("Desacelerando");
                 time -= Time.deltaTime;
             }
 
             if (time <= 0)
             {
+                Debug.Log("Acelerando novamente");
                 desaceleracaototal = 0;
                 time = 10;
             }

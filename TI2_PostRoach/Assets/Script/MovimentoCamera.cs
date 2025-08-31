@@ -4,6 +4,7 @@ public class MovimentoCamera : MonoBehaviour
 {
     public Transform cameraTransform;
     public float velocity = 5;
+    public float aux = 5;
     public Rigidbody rb;
 
     void Start()
@@ -19,8 +20,23 @@ public class MovimentoCamera : MonoBehaviour
 
         //transform.position += direction * velocity * Time.deltaTime;
 
-        rb.AddForce(direction * velocity);
+        if (Aceleradores.aceleracaototal > Desaceleradores.desaceleracaototal)
+        {
+            rb.AddForce(direction * velocity * Aceleradores.aceleracaototal);
+        }
+        else if(Aceleradores.aceleracaototal < Desaceleradores.desaceleracaototal)
+        {
+            aux = velocity;
+            velocity -= Desaceleradores.desaceleracaototal;
+            rb.AddForce(direction * velocity);
+        }
 
-        //rb.maxAngularVelocity = 10;
+        if(Aceleradores.aceleracaototal == 0 || Desaceleradores.desaceleracaototal == 0)
+        {
+            velocity = aux;
+            rb.AddForce(direction * velocity);
+        }
+
+            rb.maxAngularVelocity = 300f;
     }
 }
